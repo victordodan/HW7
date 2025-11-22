@@ -1,6 +1,6 @@
 /******************************************************************
  *
- *   YOUR NAME / SECTION NUMBER
+ *   Victor Dodan / 002
  *
  *   This java file contains the problem solutions for the methods selectionSort,
  *   mergeSortDivisibleByKFirst, asteroidsDestroyed, and numRescueCanoes methods.
@@ -37,11 +37,21 @@ public class ProblemSolutions {
         int n = values.length;
 
         for (int i = 0; i < n - 1; i++) {
+            int index = i;
 
-            // YOU CODE GOES HERE -- COMPLETE THE INNER LOOP OF THIS
-            // "SELECTION SORT" ALGORITHM.
-            // DO NOT FORGET TO ADD YOUR NAME / SECTION ABOVE
+            for (int j = i + 1; j < n; j++) {
 
+                if (ascending) {
+                    if (values[j] < values[index]) index = j;
+                }
+                else {
+                    if (values[j] > values[index]) index = j;
+                }
+            }
+
+            int temp = values[i];
+            values[i] = values[index];
+            values[index] = temp;
         }
 
     } // End class selectionSort
@@ -83,15 +93,18 @@ public class ProblemSolutions {
         int mid = left + (right - left) / 2;
         mergeSortDivisibleByKFirst(values, k, left, mid);
         mergeSortDivisibleByKFirst(values, k, mid + 1, right);
-        mergeDivisbleByKFirst(values, k, left, mid, right);
+        mergeDivisibleByKFirst(values, k, left, mid, right);
     }
 
     /*
      * The merging portion of the merge sort, divisible by k first
      */
 
-    private void mergeDivisbleByKFirst(int arr[], int k, int left, int mid, int right)
+    private void mergeDivisibleByKFirst(int[] arr, int k, int left, int mid, int right)
     {
+        
+        //i can't do this
+        
         // YOUR CODE GOES HERE, THIS METHOD IS NO MORE THAN THE STANDARD MERGE PORTION
         // OF A MERGESORT, EXCEPT THE NUMBERS DIVISIBLE BY K MUST GO FIRST WITHIN THE
         // SEQUENCE PER THE DISCUSSION IN THE PROLOGUE ABOVE.
@@ -101,9 +114,6 @@ public class ProblemSolutions {
         // ALLOCATES AUXILIARY DATA STRUCTURES (TEMPORARY ARRAYS). IT WILL BE EASIER
         // TO CODE WITH A SPACE COMPLEXITY OF O(N LOG N), WHICH IS FINE FOR PURPOSES
         // OF THIS PROGRAMMING EXERCISES.
-
-        return;
-
     }
 
 
@@ -153,11 +163,12 @@ public class ProblemSolutions {
      */
 
     public static boolean asteroidsDestroyed(int mass, int[] asteroids) {
-
-        // YOUR CODE GOES HERE, CONSIDER USING ARRAYS.SORT()
-
-        return false;
-
+        Arrays.sort(asteroids);
+        for(int k : asteroids){
+            if(mass < k) return false;
+            else mass += k;
+        }
+        return true;
     }
 
 
@@ -191,12 +202,22 @@ public class ProblemSolutions {
      */
 
     public static int numRescueSleds(int[] people, int limit) {
+        Arrays.sort(people);
 
-        // YOUR CODE GOES HERE, CONSIDER USING ARRAYS.SORT
+        int sleds = 0;
+        int start = 0;
+        int end = people.length-1;
 
-        return -1;
+        while(start <= end){
+            if (people[start] + people[end] <= limit){
+                start++;
+                end--;
+            }
+            else end--;
+            sleds++;
+        }
+        return sleds;
 
     }
 
 } // End Class ProblemSolutions
-
